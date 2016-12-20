@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace HomeWork3
 {
+    [Serializable]
     public class Employee
     {
-        public int ID { set; get; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public byte Age { set; get; }
         public string PhoneNumber { set; get; }
         public string Email { set; get; }
 
-        public Employee(int id, string firstName, string lastName, byte age, string phoneNumber, string email)
+        public Employee(string firstName, string lastName, byte age, string phoneNumber, string email)
         {
-            ID = id;
             FirstName = firstName;
             LastName = lastName;
             Age = age;
@@ -27,7 +26,7 @@ namespace HomeWork3
 
         public override string ToString()
         {
-            return ("ID: " + ID + ", фамилия: " + LastName + ", имя: " + FirstName + ", возраст: " + Age + ", номер тел.: " + PhoneNumber + ", email: " + Email);
+            return string.Format ("Фамилия: {0}, имя: {1}, возраст: {2}, телефон: {3}, e-mail: {4}", LastName, FirstName, Age, PhoneNumber, Email);
         }
     }
 }
