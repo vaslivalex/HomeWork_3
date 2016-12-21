@@ -7,27 +7,27 @@ using System.Text;
 
 namespace HomeWork3
 {
-    class SerealiseToBin
+    class SerializeToBin
     {
         public void SerializeList(List<Employee> list)
         {
             BinaryFormatter binForm = new BinaryFormatter();
-            using (FileStream fstream = new FileStream(@"D:\employees.txt", FileMode.OpenOrCreate))
+            using (FileStream fstream = new FileStream("employees.bin", FileMode.OpenOrCreate))
             {
                 binForm.Serialize(fstream, list);
             }
         }
         public List<Employee> DeserializeList()
         {
-            if (File.Exists(@"D:\employees.txt"))
+            if (File.Exists("employees.bin"))
             {
                 BinaryFormatter binForm = new BinaryFormatter();
-                List<Employee> employees;
-                using (FileStream fstream = new FileStream(@"D:\employees.txt", FileMode.OpenOrCreate))
+                List<Employee> newEmployee;
+                using (FileStream fstream = new FileStream("employees.bin", FileMode.OpenOrCreate))
                 {
-                    binForm = (List<Employee>)binForm.Deserialize(fstream);
+                    newEmployee = (List<Employee>)binForm.Deserialize(fstream);
                 }
-                return binForm;
+                return newEmployee;
             }
             else
             {
