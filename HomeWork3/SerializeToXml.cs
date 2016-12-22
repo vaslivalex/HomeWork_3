@@ -8,11 +8,11 @@ using System.Xml.Serialization;
 
 namespace HomeWork3
 {
-    class SerializeToXml
+    public class SerializeToXml
     {
         public void SerializeXml(List<Employee> list)
         {
-            XmlSerializer xmlser = new XmlSerializer(typeof(Employee));
+            XmlSerializer xmlser = new XmlSerializer(typeof(List<Employee>));
             using (FileStream fstream = new FileStream("employees.xml", FileMode.OpenOrCreate))
             {
                 xmlser.Serialize(fstream, list);
@@ -22,7 +22,7 @@ namespace HomeWork3
         {
             if (File.Exists("employees.xml"))
             {
-                XmlSerializer xmlser = new XmlSerializer(typeof(Employee));
+                XmlSerializer xmlser = new XmlSerializer(typeof(List<Employee>));
                 List<Employee> newEmployee;
                 using (FileStream fstream = new FileStream("employees.xml", FileMode.OpenOrCreate))
                 {

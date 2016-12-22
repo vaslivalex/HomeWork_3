@@ -9,24 +9,26 @@ namespace HomeWork3
     [Serializable]
     public class Employee
     {
+        public int Id { get; set; }
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public byte Age { set; get; }
         public string PhoneNumber { set; get; }
-        public string Email { set; get; }
+        public string EMail { set; get; }
 
-        public Employee(string firstName, string lastName, byte age, string phoneNumber, string email)
+        public Employee(int id, string lastName, string firstName, byte age, string phoneNumber, string eMail)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Age = age;
             PhoneNumber = phoneNumber;
-            Email = email;
+            EMail = eMail;
         }
 
         public override string ToString()
         {
-            return string.Format ("Фамилия: {0}, имя: {1}, возраст: {2}, телефон: {3}, e-mail: {4}", LastName, FirstName, Age, PhoneNumber, Email);
+            return string.Format ("Идентификатор: {0}, фамилия: {1}, имя: {2}, возраст: {3}, телефон: {4}, e-mail: {5}", Id, LastName, FirstName, Age, PhoneNumber, EMail);
         }
     }
 }

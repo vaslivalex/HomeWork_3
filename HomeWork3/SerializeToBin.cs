@@ -9,7 +9,7 @@ namespace HomeWork3
 {
     class SerializeToBin
     {
-        public void SerializeList(List<Employee> list)
+        public void SerializeBin(List<Employee> list)
         {
             BinaryFormatter binForm = new BinaryFormatter();
             using (FileStream fstream = new FileStream("employees.bin", FileMode.OpenOrCreate))
