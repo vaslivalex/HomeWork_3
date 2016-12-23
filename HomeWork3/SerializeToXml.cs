@@ -20,15 +20,24 @@ namespace HomeWork3
         }
         public List<Employee> DeserializeList()
         {
+
             if (File.Exists("employees.xml"))
             {
-                XmlSerializer xmlser = new XmlSerializer(typeof(List<Employee>));
-                List<Employee> newEmployee;
-                using (FileStream fstream = new FileStream("employees.xml", FileMode.OpenOrCreate))
+                try
                 {
-                    newEmployee = (List<Employee>)xmlser.Deserialize(fstream);
+                    XmlSerializer xmlser = new XmlSerializer(typeof(List<Employee>));
+                    List<Employee> newEmployee;
+                    using (FileStream fstream = new FileStream("employees.xml", FileMode.OpenOrCreate))
+                    {
+                        newEmployee = (List<Employee>)xmlser.Deserialize(fstream);
+                    }
+                    return newEmployee;
                 }
-                return newEmployee;
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ахтунг!! АшЫпка, файла XML!!!");
+                    return new List<Employee>();
+                }
             }
             else
             {

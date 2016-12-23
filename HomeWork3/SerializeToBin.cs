@@ -21,18 +21,26 @@ namespace HomeWork3
         {
             if (File.Exists("employees.bin"))
             {
-                BinaryFormatter binForm = new BinaryFormatter();
-                List<Employee> newEmployee;
-                using (FileStream fstream = new FileStream("employees.bin", FileMode.OpenOrCreate))
+                try
                 {
-                    newEmployee = (List<Employee>)binForm.Deserialize(fstream);
+                    BinaryFormatter binForm = new BinaryFormatter();
+                    List<Employee> newEmployee;
+                    using (FileStream fstream = new FileStream("employees.bin", FileMode.OpenOrCreate))
+                    {
+                        newEmployee = (List<Employee>)binForm.Deserialize(fstream);
+                    }
+                    return newEmployee;
                 }
-                return newEmployee;
+                catch (Exception e)
+                {
+                    Console.WriteLine("Ахтунг!! АшЫпка, бинарного файла!!!");
+                    return new List<Employee>();
+                }
             }
             else
             {
                 return new List<Employee>();
             }
         }
-    }      
+    }
 }

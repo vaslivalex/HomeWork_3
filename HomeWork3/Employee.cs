@@ -15,7 +15,10 @@ namespace HomeWork3
         public byte Age { set; get; }
         public string PhoneNumber { set; get; }
         public string EMail { set; get; }
+        public Employee()
+        {
 
+        }
         public Employee(int id, string lastName, string firstName, byte age, string phoneNumber, string eMail)
         {
             Id = id;
@@ -28,7 +31,7 @@ namespace HomeWork3
 
         public override string ToString()
         {
-            return string.Format ("Идентификатор: {0}, фамилия: {1}, имя: {2}, возраст: {3}, телефон: {4}, e-mail: {5}", Id, LastName, FirstName, Age, PhoneNumber, EMail);
+            return string.Format("Идентификатор: {0}, фамилия: {1}, имя: {2}, возраст: {3}, телефон: {4}, e-mail: {5}", Id, LastName, FirstName, Age, PhoneNumber, EMail);
         }
     }
 }

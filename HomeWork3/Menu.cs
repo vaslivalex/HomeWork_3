@@ -10,7 +10,7 @@ namespace HomeWork3
 {
     class Menu
     {
-        List<Employee> employeesList;
+        List<Employee> employeesList = new List<Employee>();
         ReadFileConfig rfc = new ReadFileConfig();
         SerializeToBin binSerializer;
         SerializeToXml xmlSerializer;
@@ -42,12 +42,7 @@ namespace HomeWork3
                 Console.Write("Введите команду: ");
                 Console.ResetColor();
 
-
                 string[] commands = Console.ReadLine().Split(' ');
-                if (commands[0].ToLower() == "exit" && commands.Length == 1)
-                {
-                    return;
-                }
                 if (commands[0].ToLower() == "help" && commands.Length == 1)
                 {
                     Help();
@@ -64,11 +59,11 @@ namespace HomeWork3
                     string phoneNumber;
                     string eMail;
                     bool idIsExist = false;
+
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nЗаполнение данных о сотруднике.");
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("1. Введите идентификатор:  ");
-
                     Console.ResetColor();
                     temp = Console.ReadLine();
                     if (!Int32.TryParse(temp, out id))
@@ -137,7 +132,7 @@ namespace HomeWork3
                     Console.ResetColor();
                     Console.Write("+38");
                     temp = Console.ReadLine();
-                    reg = @"[0]\d{9}";
+                    reg = @"[0-9]\d{9}";
                     if (Regex.IsMatch(temp, reg))
                     {
                         phoneNumber = temp;
@@ -165,13 +160,36 @@ namespace HomeWork3
                     employeesList.Add(new Employee(id, lastName, firstName, age, phoneNumber, eMail));
                     Console.WriteLine("Сотрудник добавлен в базу данных!");
                 }
-                if (commands[0].ToLower() == "exit" && commands.Length == 1)
+                if (commands[0].ToLower() == "exit" && commands.Length == 1 && rfc.ReadFromIni().ToLower() == "xml")
                 {
                     xmlSerializer.SerializeXml(employeesList);
+                    return;
                 }
                 else if (commands[0].ToLower() == "exit" && commands.Length == 1 && rfc.ReadFromIni().ToLower() == "bin")
                 {
                     binSerializer.SerializeBin(employeesList);
+                    return;
+                }
+                if (commands[0].ToLower() == "find" && commands.Length == 2)
+                {
+                    int find;
+                    if (!Int32.TryParse(commands[1], out find))
+                    {
+                        Help();
+                        continue;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < employeesList.Count; i++)
+                        {
+                            if (employeesList[i].Id == find)
+                            {
+                                Console.WriteLine(employeesList[i]);
+                                Console.ReadLine();
+                            }
+                        }
+                        Error2();
+                    }
                 }
 
                 if (commands[0].ToLower() == "del" && commands.Length == 2)
@@ -179,6 +197,7 @@ namespace HomeWork3
                     int del;
                     if (!Int32.TryParse(commands[1], out del))
                     {
+                        Error();
                         Help();
                         continue;
                     }
@@ -194,6 +213,7 @@ namespace HomeWork3
                                 Console.ReadLine();
                             }
                         }
+                        Error2();
                     }
                 }
 
@@ -215,7 +235,16 @@ namespace HomeWork3
         private void Error()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nНеверный формат данных");
+            Console.WriteLine("\nОшибка");
+            Console.WriteLine("Неверный формат данных!");
+            Console.ResetColor();
+            Console.ReadLine();
+        }
+        private void Error2()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nОшибка");
+            Console.WriteLine("Сотрудник с таким ID не найден!");
             Console.ResetColor();
             Console.ReadLine();
         }
@@ -223,7 +252,7 @@ namespace HomeWork3
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nДоступные команды:");
-            Console.WriteLine("\thelp       - добавить сотрудника");
+            Console.WriteLine("\thelp       - помощь");
             Console.WriteLine("\tadd        - добавить сотрудника");
             Console.WriteLine("\tsee_all    - посмотреть список сотрудников");
             Console.WriteLine("\tdel ID     - удалить сотрудника по идентификатору");
