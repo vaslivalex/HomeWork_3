@@ -31,8 +31,10 @@ namespace HomeWork3
                 TextWriter tw = new StreamWriter("option.ini", true);
                 tw.WriteLine("xml");
                 tw.Close();
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Ошибка файла конфигурации!");
                 Console.WriteLine("Файл был автоматически восстановлен.");
+                Console.ResetColor();
             }
 
             while (true)
@@ -219,12 +221,19 @@ namespace HomeWork3
 
                 if (commands[0].ToLower() == "see_all" && commands.Length == 1)
                 {
-                    foreach (var empl in employeesList)
+                    foreach (Employee empl in employeesList)
                     {
                         Console.Write(new String(' ', 5));
                         Console.ResetColor();
                         Console.WriteLine(empl.ToString());
                     }
+
+                }
+                if (employeesList.Count == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("База данных пуста");
+                    Console.ResetColor();
                 }
                 else
                 {
